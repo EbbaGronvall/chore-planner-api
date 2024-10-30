@@ -9,7 +9,10 @@ class Profile(models.Model):
     ]
     member = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    #household = models.ManyToManyField(Household, related_name='members', blank=True)
+    image = models.ImageField(
+        upload_to='images/', default='../default_profile_zcggvy'
+    )
+    
 
     def __str__(self):
         return self.member.username
