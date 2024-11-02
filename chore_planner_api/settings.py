@@ -39,6 +39,10 @@ ALLOWED_HOSTS = [
     '8000-ebbagronval-choreplanne-13ggb49jjp7.ws.codeinstitute-ide.net',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.codeinstitute-ide.net/',
+    'https://*.herokuapp.com'
+]
 
 # Application definition
 
@@ -52,6 +56,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
+    'django_filters',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     'profiles',
 ]
