@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from households.models import Household
 
 class Profile(models.Model):
     ROLE_CHOICES = [
@@ -8,6 +9,7 @@ class Profile(models.Model):
         ('Child', 'Child'),
     ]
     member = models.OneToOneField(User, on_delete=models.CASCADE)
+    household = models.ManyToManyField(Household, related_name='members', blank=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_zcggvy'
