@@ -7,7 +7,7 @@ class HouseholdSerializer(serializers.ModelSerializer):
     household_members = serializers.SerializerMethodField()
 
     def get_household_members(self, obj):
-        return [profile.member.username for profile in Profile.objects.filter(household=obj)]
+        return [profile.member.username for profile in obj.members.all()]
 
     class Meta:
         model = Household
