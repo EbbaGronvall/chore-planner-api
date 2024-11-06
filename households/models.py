@@ -1,12 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 
 class Household(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True, blank=True)
-    household_members = models.ManyToManyField(User, related_name='households')
+    
 
     def clean(self):
         if len(self.name) < 3:
