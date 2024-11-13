@@ -13,7 +13,7 @@ class HouseholdList(generics.ListAPIView):
         filters.SearchFilter
     ]
     filterset_fields = [
-        'name', 'members__member__username'
+        'name'
     ]
     search_fields = [
         'name', 'members__member__username'

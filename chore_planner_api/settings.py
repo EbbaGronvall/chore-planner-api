@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 
     'profiles',
     'households',
+    'tasks',
 ]
 SITE_ID = 1
 MIDDLEWARE = [

@@ -10,7 +10,7 @@ class ProfileList(generics.ListAPIView):
         DjangoFilterBackend,
         filters.SearchFilter
     ]
-    filterset_fields = ['role']
+    filterset_fields = ['role', 'household']
     search_fields = ['member__username']
     queryset = Profile.objects.all()
 
