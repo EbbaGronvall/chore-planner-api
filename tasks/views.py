@@ -2,7 +2,7 @@ from rest_framework import generics, filters, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task
 from .serializers import TaskSerializer
-
+from chore_planner_api.permissions import IsTaskGiverOrReadOnly
 
 class TaskList(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
@@ -24,3 +24,7 @@ class TaskList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(task_giver=self.request.user.profile)
 
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsTaskGiverOrReadOnly]
+    queryset = Task.objects.all()
