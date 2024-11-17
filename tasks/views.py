@@ -22,8 +22,8 @@ class TaskList(generics.ListCreateAPIView):
     ]
     def get_queryset(self):
         user = self.request.user
-        households = user.profile.household.all()
-        return Task.objects.filter(assigned_to__household__in=households)
+        households = user.profile.household
+        return Task.objects.filter(assigned_to__household=households)
 
     def perform_create(self, serializer):
         serializer.save(task_giver=self.request.user.profile)
@@ -34,5 +34,5 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     def get_queryset(self):
         user = self.request.user
-        households = user.profile.household.all()
-        return Task.objects.filter(assigned_to__household__in=households)
+        households = user.profile.household
+        return Task.objects.filter(assigned_to__household=households)
