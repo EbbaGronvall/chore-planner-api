@@ -4,6 +4,7 @@ from .models import Profile
 from .serializers import ProfileSerializer
 from chore_planner_api.permissions import IsMemberOrReadOnly
 
+
 class ProfileList(generics.ListAPIView):
     serializer_class = ProfileSerializer
     filter_backends = [

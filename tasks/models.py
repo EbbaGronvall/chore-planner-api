@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # A model for the tasks
 
+
 class Task(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -13,11 +14,17 @@ class Task(models.Model):
     ]
     title = models.CharField(max_length=30)
     description = models.TextField()
-    task_giver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='giver_tasks')
+    task_giver = models.ForeignKey(
+            Profile, on_delete=models.CASCADE, related_name='giver_tasks'
+            )
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    assigned_to = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='assigned_to_tasks')
+    status = models.CharField(
+            max_length=20, choices=STATUS_CHOICES, default='pending'
+            )
+    assigned_to = models.ForeignKey(
+            Profile, on_delete=models.CASCADE, related_name='assigned_to_tasks'
+            )
 
     def clean(self):
         # Validate that due date is not in the past
@@ -25,21 +32,21 @@ class Task(models.Model):
             raise ValidationError('Due date can not be in the past.')
 
         # Validate that only parents can assign tasks within their household
-        
 
         if self.task_giver.role != 'Parent':
             raise ValidationError('Only parents can assign tasks.')
 
-        if not self.task_giver.household.filter(id__in=self.assigned_to.household.values('id')).exists():
-            raise ValidationError('You can only assign tasks to members of the same household as you!')
-
+        if self.task_giver.household != self.assigned_to.household:
+            raise ValidationError(
+                    'You can only assign tasks to members of the same' +
+                    ' household as you!')
 
     def save(self, *args, **kwargs):
         self.full_clean()
         super(Task, self).save(*args, **kwargs)
-        
+
     class Meta:
         ordering = ['-due_date']
-    
+
     def __str__(self):
         return self.title

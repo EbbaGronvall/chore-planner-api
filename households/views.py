@@ -5,6 +5,7 @@ from .models import Household
 from .serializers import HouseholdSerializer
 from chore_planner_api.permissions import IsHouseholdMemberOrReadOnly
 
+
 class HouseholdList(generics.ListAPIView):
     serializer_class = HouseholdSerializer
     queryset = Household.objects.all()
@@ -18,6 +19,7 @@ class HouseholdList(generics.ListAPIView):
     search_fields = [
         'name', 'members__member__username'
     ]
+
 
 class HouseholdDetail(generics.RetrieveUpdateAPIView):
     serializer_class = HouseholdSerializer
