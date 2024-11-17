@@ -9,7 +9,7 @@ class Profile(models.Model):
         ('Child', 'Child'),
     ]
     member = models.OneToOneField(User, on_delete=models.CASCADE)
-    household = models.ManyToManyField(Household, related_name='members', blank=True)
+    household = models.ForeignKey(Household, on_delete=models.CASCADE, related_name='members', null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_zcggvy'
