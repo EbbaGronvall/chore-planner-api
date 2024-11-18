@@ -23,10 +23,3 @@ class Profile(models.Model):
         return self.member.username
 
 
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        print(f"Creating profile for user: {instance.username}")
-        Profile.objects.create(member=instance)
-
-
-post_save.connect(create_profile, sender=User)
