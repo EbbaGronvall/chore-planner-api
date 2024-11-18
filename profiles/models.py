@@ -14,7 +14,7 @@ class Profile(models.Model):
         Household, on_delete=models.CASCADE, related_name='members',
         null=True, blank=True
         )
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='Parent')
     image = models.ImageField(
         upload_to='images/', default='../default_profile_zcggvy'
     )
