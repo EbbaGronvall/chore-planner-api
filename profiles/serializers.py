@@ -8,7 +8,7 @@ from tasks.serializers import TaskSerializer
 class ProfileSerializer(serializers.ModelSerializer):
     member = serializers.ReadOnlyField(source='member.username')
     is_member = serializers.SerializerMethodField()
-    household = serializers.CharField(source='household.name')
+    household = serializers.SerializerMethodField()
     tasks = serializers.SerializerMethodField()
 
     def get_tasks(self, obj):
@@ -18,6 +18,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_is_member(self, obj):
         request = self.context['request']
         return request.user == obj.member
+    
+    def get_household(self, obj):
+        if obj.household:
+            return obj.household.name
+        return "No household"
 
     class Meta:
         model = Profile
