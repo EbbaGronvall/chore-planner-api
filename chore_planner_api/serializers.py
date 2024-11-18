@@ -1,5 +1,4 @@
 from dj_rest_auth.serializers import UserDetailsSerializer
-from dj_rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
 
 
@@ -11,10 +10,4 @@ class CurrentUserSerializer(UserDetailsSerializer):
         fields = UserDetailsSerializer.Meta.fields + (
             'profile_id', 'profile_image'
         )
-
-
-class CustomRegisterSerializer(RegisterSerializer):
-    def save(self, request):
-        user = super().save(request)
-        Profile.objects.create(member=user)
-        return user
+        

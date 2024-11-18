@@ -53,7 +53,6 @@ JWT_AUTH_SAMESITE = 'None'
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER':
         'chore_planner_api.serializers.CurrentUserSerializer',
-    'REGISTER_SERIALIZER': 'chore_planner_api.serializers.CustomRegisterSerializer',
 }
 
 
