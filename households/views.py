@@ -6,7 +6,7 @@ from .serializers import HouseholdSerializer
 from chore_planner_api.permissions import IsHouseholdMemberOrReadOnly
 
 
-class HouseholdList(generics.ListAPIView):
+class HouseholdList(generics.ListCreateAPIView):
     serializer_class = HouseholdSerializer
     queryset = Household.objects.all()
     filter_backends = [
@@ -19,7 +19,8 @@ class HouseholdList(generics.ListAPIView):
     search_fields = [
         'name', 'members__member__username'
     ]
-
+    def perform_create(self, serializer):
+        serializer.save()
 
 class HouseholdDetail(generics.RetrieveUpdateAPIView):
     serializer_class = HouseholdSerializer
