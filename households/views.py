@@ -4,11 +4,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Household
 from .serializers import HouseholdSerializer
 from chore_planner_api.permissions import IsHouseholdMemberOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class HouseholdList(generics.ListCreateAPIView):
     serializer_class = HouseholdSerializer
     queryset = Household.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter

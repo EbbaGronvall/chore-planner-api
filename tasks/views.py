@@ -3,12 +3,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Task
 from .serializers import TaskSerializer
 from chore_planner_api.permissions import IsTaskGiverOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class TaskList(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
-
     queryset = Task.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
