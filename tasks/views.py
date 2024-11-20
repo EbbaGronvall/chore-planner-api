@@ -16,11 +16,11 @@ class TaskList(generics.ListCreateAPIView):
         filters.OrderingFilter
     ]
     filterset_fields = [
-        'title', 'due_date', 'status', 'assigned_to'
+        'title', 'status'
     ]
-    search_fields = ['assigned_to__username']
+    search_fields = ['assigned_to__member__username', 'title', 'task_giver__member__username']
     ordering_fields = [
-        'title', 'due_date', 'status', 'assigned_to__username'
+        'title', 'due_date', 'status', 'assigned_to__member__username'
     ]
 
     def get_queryset(self):
