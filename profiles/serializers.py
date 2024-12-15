@@ -14,6 +14,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_tasks(self, obj):
         tasks = Task.objects.filter(assigned_to=obj)
+        if not tasks.exists():
+            return []
         return [task.title for task in tasks]
 
     def get_is_member(self, obj):

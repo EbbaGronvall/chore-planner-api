@@ -13,7 +13,11 @@ class ProfileList(generics.ListAPIView):
     ]
     filterset_fields = ['role', 'household']
     search_fields = ['member__username']
-    queryset = Profile.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_authenticated:
+            return Profile.objects.none()
+        return Profile.objects.filter(household=user.profile.household)
 
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
