@@ -5,6 +5,7 @@ from .models import Household
 from .serializers import HouseholdSerializer
 from chore_planner_api.permissions import IsHouseholdMemberOrReadOnly
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from profiles.models import Profile
 
 
 class HouseholdList(generics.ListCreateAPIView):
@@ -22,7 +23,10 @@ class HouseholdList(generics.ListCreateAPIView):
         'name', 'members__member__username'
     ]
     def perform_create(self, serializer):
-        serializer.save()
+        household = serializer.save()
+        user = self.request.user
+        user.profile.household = household
+        user.profile.save()
 
 class HouseholdDetail(generics.RetrieveUpdateAPIView):
     serializer_class = HouseholdSerializer
