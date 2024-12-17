@@ -29,17 +29,15 @@ class Task(models.Model):
     def clean(self):
         # Validate that due date is not in the past
         if self.due_date < timezone.now().date():
-            raise ValidationError('Due date can not be in the past.')
+            raise ValidationError({'due_date': 'Due date can not be in the past.'})
 
         # Validate that only parents can assign tasks within their household
 
         if self.task_giver.role != 'Parent':
-            raise ValidationError('Only parents can assign tasks.')
+            raise ValidationError({'task_giver': 'Only parents can assign tasks.'})
 
         if self.task_giver.household != self.assigned_to.household:
-            raise ValidationError(
-                    'You can only assign tasks to members of the same' +
-                    ' household as you!')
+            raise ValidationError({'assigned_to': 'You can only assign tasks to members of the same household as you!'})
 
     def save(self, *args, **kwargs):
         self.full_clean()

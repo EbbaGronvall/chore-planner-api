@@ -9,9 +9,7 @@ class Household(models.Model):
 
     def clean(self):
         if len(self.name) < 3:
-            raise ValidationError(
-                'Household name must be at least 3 characters long.'
-                )
+            raise ValidationError({'name': 'Household name must be at least 3 characters long.'})
 
     def save(self, *args, **kwargs):
 
