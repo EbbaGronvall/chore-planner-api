@@ -33,6 +33,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         return None
     
 
+    def validate(self, data):
+        request = self.context['request']
+        if request.method == 'PUT' and 'household_slug' in request.data:
+            household_slug = request.data.get('household_slug')
+            if household_slug:
+                try:
+                    household = Household.objects.get(slug=household_slug)
+                    data['household'] = household
+                except Household.DoesNotExist:
+                    raise ValidationError({'household_slug': 'Household with this slug does not exist.'})
+        return data
+
     class Meta:
         model = Profile
         fields = [
