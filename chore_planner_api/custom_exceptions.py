@@ -4,11 +4,11 @@ from rest_framework.exceptions import APIException
 from django.core.exceptions import ValidationError
 from rest_framework import status
 
+
 def custom_exception_handler(exc, context):
     """
     Custom exception handler to provide standardized error responses.
     """
-    
     response = exception_handler(exc, context)
 
     if isinstance(exc, ValidationError):

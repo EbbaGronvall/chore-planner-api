@@ -8,11 +8,18 @@ class Household(models.Model):
     slug = models.SlugField(unique=True, blank=True)
 
     def clean(self):
+        """
+        Validates length of name.
+        """
         if len(self.name) < 3:
-            raise ValidationError({'name': 'Household name must be at least 3 characters long.'})
+            raise ValidationError({
+                'name': 'Household name must be at least 3 characters long.'
+                })
 
     def save(self, *args, **kwargs):
-
+        """
+        Saves the household after cleaning and generating a slug.
+        """
         self.full_clean()
 
         if not self.slug:

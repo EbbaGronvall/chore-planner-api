@@ -29,7 +29,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'chore_planner_api.custom_exceptions.custom_exception_handler',
+    'EXCEPTION_HANDLER':
+        'chore_planner_api.custom_exceptions.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ
@@ -122,7 +123,7 @@ if 'CLIENT_ORIGIN' in os.environ:
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.codeinstitute-ide\.net$"
+        r"^https://.*\.codeinstitute-ide\.net$"
     ]
 
 CORS_ALLOW_CREDENTIALS = True
