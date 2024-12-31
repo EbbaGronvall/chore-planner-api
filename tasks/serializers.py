@@ -12,6 +12,9 @@ class TaskSerializer(serializers.ModelSerializer):
                                         )
 
     def get_is_task_giver(self, obj):
+        """
+        Determines if the request user is the task giver.
+        """
         request = self.context['request']
         return request.user == obj.task_giver.member
 
