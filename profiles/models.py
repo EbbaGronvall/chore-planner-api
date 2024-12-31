@@ -14,7 +14,8 @@ class Profile(models.Model):
         Household, on_delete=models.CASCADE, related_name='members',
         null=True, blank=True
         )
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='Parent')
+    role = models.CharField(
+            max_length=10, choices=ROLE_CHOICES, default='Parent')
     image = models.ImageField(
         upload_to='images/', default='../default_profile_zcggvy'
     )
@@ -24,6 +25,9 @@ class Profile(models.Model):
 
 
 def create_profile(sender, instance, created, **kwargs):
+    """
+    Signal to automatically create a Profile when a User is created.
+    """
     if created:
         Profile.objects.create(member=instance)
 

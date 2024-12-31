@@ -6,6 +6,9 @@ from chore_planner_api.permissions import IsMemberOrReadOnly
 
 
 class ProfileList(generics.ListAPIView):
+    """
+    API view for listing profiles.
+    """
     serializer_class = ProfileSerializer
     filter_backends = [
         DjangoFilterBackend,
@@ -13,7 +16,12 @@ class ProfileList(generics.ListAPIView):
     ]
     filterset_fields = ['role', 'household']
     search_fields = ['member__username']
+
     def get_queryset(self):
+        """
+        Retrieves the queryset of profiles based on the authenticated
+        user's household.
+        """
         user = self.request.user
         if not user.is_authenticated:
             return Profile.objects.none()
@@ -21,6 +29,9 @@ class ProfileList(generics.ListAPIView):
 
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
+    """
+    API view for retrieving and updating a specific profile.
+    """
     serializer_class = ProfileSerializer
     permission_classes = [IsMemberOrReadOnly]
     queryset = Profile.objects.all()
