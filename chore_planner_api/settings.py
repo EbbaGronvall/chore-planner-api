@@ -40,10 +40,14 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.codeinstitute-ide.net/',
+    "http://localhost:3000",
     'https://*.herokuapp.com'
 ]
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    'https://chore-planner-frontend-ce06c4825181.herokuapp.com',
+]
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
